@@ -2,11 +2,14 @@
 import 'dart:math';
 import 'dart:io';
 class Game{
-  static const maxRandom = 100;
+  static List<int> myList = [];
+  int maxRandom=100;
+  static const member =0;
   int? _answer;
   int? _count = 0;
 
-  Game(){
+  Game({maxRandom:100}){
+    this.maxRandom = maxRandom;
     var r = Random();
     _answer = r.nextInt(maxRandom)+1; //_answer = private package
   }
@@ -21,13 +24,12 @@ class Game{
       return 0;
     }
   }
+
   int? getCount(){
     return _count;
   }
   void playGame(){
-    const maxRandom = 100;
 
-    var game = Game();
     var isCorrect = false;
 
     print('╔════════════════════════════════════════');
@@ -42,8 +44,8 @@ class Game{
         continue;
       }
 
-      var result = game.doGuess(guess);
-      var round = game.getCount();
+      var result = doGuess(guess);
+      var round = _count;
       if (result == 1) {
         print('║ ➜ $guess is TOO HIGH! ▲');
         print('╟──────────────────────────────────────── $round');
@@ -53,7 +55,9 @@ class Game{
       } else {
         print('║ ➜ $guess is CORRECT ❤, total guesses: $round');
         print('╟────────────────────────────────────────');
+        myList.add(round!);
         isCorrect = true;
+
       }
     } while (!isCorrect);
 
